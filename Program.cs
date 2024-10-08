@@ -5,6 +5,9 @@ using System.Reflection;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using StudentManagementApp.UI;
+
+
 namespace StudentManagementApp
 {
     class Program
@@ -15,7 +18,12 @@ namespace StudentManagementApp
 
             Screen normalScreen = new Screen();
 
-            normalScreen.MainScreen();
+
+
+            //normalScreen.MainScreen();
+
+            StudentUI studentUI = new StudentUI();
+            
 
         }
 

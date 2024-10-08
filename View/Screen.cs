@@ -34,7 +34,7 @@ namespace StudentManagementApp.View
             }
             else
             {
-                Console.WriteLine("HI");
+               
             }
 
 
@@ -57,7 +57,6 @@ namespace StudentManagementApp.View
             Console.WriteLine("Your Inputed value is "+rollNumber+" "+ firstName+" "+ lastName+" "+department+" "+mobileNumber);
 
             PushTheValueToDatabase();
-
             
 
         }
