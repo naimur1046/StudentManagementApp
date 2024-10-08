@@ -1,4 +1,4 @@
-﻿using StudentManagementApp.View;
+﻿
 using System.Reflection;
 using System;
 using System.Reflection;
@@ -16,7 +16,7 @@ namespace StudentManagementApp
         {
             
 
-            Screen normalScreen = new Screen();
+            
 
 
 
