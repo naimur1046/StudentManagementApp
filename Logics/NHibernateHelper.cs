@@ -7,10 +7,11 @@ using FluentNHibernate;
 using NHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using StudentManagementApp;
 
 using StudentManagementApp.Mapping;
 
-namespace StudentManagementApp.FluentNHibernate
+namespace StudentManagementApp.Logics
 {
     public class NHibernateHelper
     {
@@ -24,10 +25,10 @@ namespace StudentManagementApp.FluentNHibernate
                 {
                     string connectionString = "Data Source=NAIMURRAHMAN;Initial Catalog = productDetails;TrustServerCertificate=True; Trusted_Connection=True;";
                     _sessionFactory = Fluently.Configure()
-    .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
-    .ShowSql())  // Enables SQL logging
-    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<ProductMap>())
-    .BuildSessionFactory();
+                   .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
+                     .ShowSql())  // Enables SQL logging
+                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
+                     .BuildSessionFactory();
 
                 }
 

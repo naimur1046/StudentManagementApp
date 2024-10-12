@@ -14,7 +14,7 @@ namespace StudentManagementApp.UI
     
     public class StudentUI
     {
-        private int option;
+        private int option=3;
         private int rollNumber;
         private string firstName;
         private string lastName;
@@ -29,6 +29,7 @@ namespace StudentManagementApp.UI
         department = "";
          mobileNumber = "";
 
+        if (option != 3) 
          ShowScreen();
         }
 
@@ -56,10 +57,23 @@ namespace StudentManagementApp.UI
             ImplementTheLogic();
         }
 
+        public static void showTheSearchResult(List<Student> students)
+        {
+            foreach (var student in students)
+            {
+                Console.WriteLine("Roll Number: " + student.rollNumber);
+                Console.WriteLine("First Name: " + student.firstName);
+                Console.WriteLine("Last Name: " + student.lastName);
+                Console.WriteLine("Department: " + student.department);
+                Console.WriteLine("Mobile Number: " + student.mobileNumber);
+                Console.WriteLine("-----------------------------------");
+            }
+        }
+
         void ImplementTheLogic()
         {
             var classImplement = new InteractionLogic(option, rollNumber,firstName,lastName,department,mobileNumber);
-            classImplement.InteractionWithDatabase();
+           
         }
 
 

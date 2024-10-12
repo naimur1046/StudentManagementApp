@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentNHibernate.Conventions.Inspections;
 using StudentManagementApp.Model;
-using StudentManagementApp.FluentNHibernate;
+using StudentManagementApp.Logics;
 
 
 

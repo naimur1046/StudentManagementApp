@@ -18,12 +18,7 @@ namespace StudentManagementApp
 
 
 
-            Controller FluentNHibernate = new Controller();
-
-
-            //normalScreen.MainScreen();
-            
-            StudentUI studentUI = new StudentUI();
+            StudentUI studentUI = new StudentUI(); 
             
 
         }

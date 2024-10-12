@@ -9,11 +9,15 @@ using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using StudentManagementApp.Model;
+using NHibernate;
+using static System.Collections.Specialized.BitVector32;
+using System.Transactions;
+using StudentManagementApp.UI;
 
 namespace StudentManagementApp.Logics
 {
 
-    internal class InteractionLogic
+    public class InteractionLogic
     {
         private int option;
         private int rollNumber;
@@ -22,6 +26,8 @@ namespace StudentManagementApp.Logics
         private string department;
         private string mobileNumber;
         string connectionString;
+        private static ISessionFactory _sessionFactory;
+
 
 
         public InteractionLogic(int option, int rollNumber, string firstName, string lastName, string department, string mobileNumber)
@@ -33,103 +39,66 @@ namespace StudentManagementApp.Logics
             this.department = department;
             this.mobileNumber = mobileNumber;
 
-            
+
+            InteractionWithDatabase();
+
+
 
 
         }
+
         public void InteractionWithDatabase()
         {
-            connectionString = "Data Source=NAIMURRAHMAN;Initial Catalog=STUDENT;TrustServerCertificate=True; Trusted_Connection=True;";
-            var configarationForDatabaseConnection = new Configuration();
-            configarationForDatabaseConnection.DataBaseIntegration(d =>
+            using (var session = NHibernateHelper.GetSession())
             {
-                d.ConnectionString = connectionString;
-                d.Dialect<MsSql2012Dialect>();
-                d.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
-
-            });
-
-            configarationForDatabaseConnection.AddAssembly(Assembly.GetExecutingAssembly());
-            var sessionFactory = configarationForDatabaseConnection.BuildSessionFactory();
-
-
-
-            if (option == 1)
-            {
-                PushTheValueToDatabase(sessionFactory);
-            }
-            else if (option == 2)
-            {
-                FetchDataFromDatabase(sessionFactory);
-            }
-
-        }
-
-        public void PushTheValueToDatabase(NHibernate.ISessionFactory sessionFactory)
-        {
-
-
-            using (var session = sessionFactory.OpenSession())
-            {
-                try
-                {
-                    using (var transaction = session.BeginTransaction())
-                    {
-                        try
-                        {
-                            var student = new Student()
-                            {
-                                rollNumber = this.rollNumber,
-                                firstName = this.firstName,
-                                lastName = this.lastName,
-                                department = this.department,
-                                mobileNumber = this.mobileNumber,
-                            };
-
-
-                            session.Save(student);
-                            transaction.Commit();
-                            Console.WriteLine("Product saved successfully.");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.ToString());
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
-
-        }
-
-        public void FetchDataFromDatabase(NHibernate.ISessionFactory sessionFactory)
-        {
-            using (var session = sessionFactory.OpenSession())
-            {
-                try
+                using (var transaction = session.BeginTransaction())
                 {
                     
-                    var students = session.Query<Student>().ToList();
 
-                    
-                    foreach (var student in students)
+                    if (option == 1)
                     {
-                        Console.WriteLine("Roll Number: " + student.rollNumber);
-                        Console.WriteLine("First Name: " + student.firstName);
-                        Console.WriteLine("Last Name: " + student.lastName);
-                        Console.WriteLine("Department: " + student.department);
-                        Console.WriteLine("Mobile Number: " + student.mobileNumber);
-                        Console.WriteLine("-----------------------------------");
+                        PushTheValueToDatabase(session, transaction);
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
+                    else if (option == 2)
+                    {
+                        FetchDataFromDatabase(session, transaction);
+                    }
+                   
                 }
             }
+
+
+
+           
+
         }
+
+        public void PushTheValueToDatabase(ISession session, ITransaction transaction)
+        {
+            var student = new Student()
+            {
+                rollNumber = this.rollNumber,
+                firstName = this.firstName,
+                lastName = this.lastName,
+                department = this.department,
+                mobileNumber = this.mobileNumber,
+            };
+
+
+            session.Save(student);
+            transaction.Commit();
+            Console.WriteLine("Product saved successfully.");
+
+            
+
+        }
+
+        public void FetchDataFromDatabase(ISession session, ITransaction transaction)
+
+              
+        {
+            var students = session.Query<Student>().ToList();
+            StudentUI.showTheSearchResult(students);
+}
     }
 }
