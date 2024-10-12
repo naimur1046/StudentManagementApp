@@ -52,9 +52,15 @@ namespace StudentManagementApp.UI
                 Console.WriteLine("Enter Your Mobile Number");
                 mobileNumber = Console.ReadLine();
                 Console.WriteLine("Your Inputed value is " + rollNumber + " " + firstName + " " + lastName + " " + department + " " + mobileNumber);
+                ImplementTheLogicforPushData();
             }
+            else if (option == 2)
+            {
+                ImplementTheLogicforFetchData();
+
+            }
+
             
-            ImplementTheLogic();
         }
 
         public static void showTheSearchResult(List<Student> students)
@@ -70,12 +76,15 @@ namespace StudentManagementApp.UI
             }
         }
 
-        void ImplementTheLogic()
+        void ImplementTheLogicforPushData()
         {
             var classImplement = new InteractionLogic(option, rollNumber,firstName,lastName,department,mobileNumber);
            
         }
-
+        void ImplementTheLogicforFetchData()
+        {
+            var classImplement = new InteractionLogic(option);
+        }
 
 
 

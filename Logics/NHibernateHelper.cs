@@ -8,7 +8,6 @@ using NHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using StudentManagementApp;
-
 using StudentManagementApp.Mapping;
 
 namespace StudentManagementApp.Logics
@@ -23,7 +22,7 @@ namespace StudentManagementApp.Logics
             {
                 if (_sessionFactory == null)
                 {
-                    string connectionString = "Data Source=NAIMURRAHMAN;Initial Catalog = productDetails;TrustServerCertificate=True; Trusted_Connection=True;";
+                    string connectionString = "Data Source=NAIMURRAHMAN;Initial Catalog = STUDENT;TrustServerCertificate=True; Trusted_Connection=True;";
                     _sessionFactory = Fluently.Configure()
                    .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
                      .ShowSql())  // Enables SQL logging

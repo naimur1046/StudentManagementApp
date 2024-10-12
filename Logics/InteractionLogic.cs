@@ -46,6 +46,10 @@ namespace StudentManagementApp.Logics
 
 
         }
+        public InteractionLogic(int option)
+        {
+            InteractionWithDatabase();
+        }
 
         public void InteractionWithDatabase()
         {
